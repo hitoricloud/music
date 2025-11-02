@@ -10,7 +10,9 @@ type MusicApp struct {
 }
 
 func NewApp() *MusicApp {
-	return &MusicApp{}
+	return &MusicApp{
+		window: &Window{},
+	}
 }
 
 func (a *MusicApp) startup(ctx context.Context) {
