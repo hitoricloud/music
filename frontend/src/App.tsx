@@ -3,6 +3,7 @@ import { useRoutes } from "react-router";
 
 import { routes } from "./routes";
 import Header from "./components/Header";
+import Navigation from "./components/Navigation";
 
 const App: FC = () => {
   const routing = useRoutes(routes);
@@ -10,6 +11,7 @@ const App: FC = () => {
   return (
     <>
       <Header />
+      <Navigation />
       <Suspense fallback={<div>loading</div>}>{routing}</Suspense>
     </>
   );
