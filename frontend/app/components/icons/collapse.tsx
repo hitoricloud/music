@@ -12,7 +12,7 @@ const CollapseIcon: FC<IconProps> = ({ width = 20, height = 20, className, ...pr
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <path opacity="0.5" d="M4 10H16" stroke="white" stroke-width="2.25" stroke-linecap="round" />
+      <path opacity="0.5" d="M4 10H16" stroke="white" strokeWidth="2.25" strokeLinecap="round" />
     </svg>
   );
 };

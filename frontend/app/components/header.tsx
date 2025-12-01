@@ -1,13 +1,19 @@
-import { useState } from "react";
+"use client";
+
+import { useMemo, useState } from "react";
+
+//icons
 import CloseIcon from "./icons/close";
 import CollapseIcon from "./icons/collapse";
 import ExpandIcon from "./icons/expand";
 import LeftArrowIcon from "./icons/left-arrow";
 import RightArrowIcon from "./icons/right-arrow";
-import SearchInput from "./search/SearchInput";
+import { useRouter } from "next/navigation";
+import { debounce } from "../utils/debounce";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState<string>("");
+  const { push } = useRouter();
 
   const handleMinimize = (): void => {
     window.runtime.WindowMinimise();
@@ -21,10 +27,15 @@ const Header = () => {
     window.runtime.Quit();
   };
 
+  const debouncedSearch = useMemo(
+    () => debounce((value: string) => push(`/search/${value}`), 700),
+    []
+  );
+
   return (
     <header
       className={
-        "w-full flex items-center justify-center outline outline-[#ffffff]/15 px-2 py-1.5 gap-2.5"
+        "w-full flex fixed items-center justify-center outline z-5 bg-(--background)/70 backdrop-blur-xl outline-[#ffffff]/15 px-2 py-1.5 gap-2.5"
       }
     >
       <section className={"flex justify-start grow gap-2.5"}>
@@ -46,7 +57,16 @@ const Header = () => {
         </nav>
       </section>
       <section className={"flex justify-center grow"}>
-        <SearchInput value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+        <input
+          name="search"
+          className="flex w-full bg-[#363636] py-2 px-4 rounded-sm outline-none"
+          placeholder="What listen today?"
+          value={searchValue}
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+            debouncedSearch(e.target.value);
+          }}
+        />
       </section>
       <section className={"flex justify-end grow"}>
         <nav className={"flex"}>

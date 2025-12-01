@@ -20,7 +20,7 @@ const ExpandIcon: FC<IconProps> = ({ width = 20, height = 20, className, ...prop
         height="10.3125"
         rx="3.15625"
         stroke="white"
-        stroke-width="1.6875"
+        strokeWidth="1.6875"
       />
     </svg>
   );

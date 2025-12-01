@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import type { IconProps } from "../../types";
 
-const LeftArrowIcon: FC<IconProps> = ({ width = 20, height = 20, className, ...props }) => {
+const RightArrowIcon: FC<IconProps> = ({ width = 20, height = 20, className, ...props }) => {
   return (
     <svg
       className={className}
@@ -14,13 +14,13 @@ const LeftArrowIcon: FC<IconProps> = ({ width = 20, height = 20, className, ...p
     >
       <path
         opacity="0.5"
-        d="M13.75 2.5L6.78033 9.46967C6.48744 9.76256 6.48744 10.2374 6.78033 10.5303L13.75 17.5"
+        d="M6.25 17.5L13.2197 10.5303C13.5126 10.2374 13.5126 9.76256 13.2197 9.46967L6.25 2.5"
         stroke="white"
-        stroke-width="2.25"
-        stroke-linecap="round"
+        strokeWidth="2.25"
+        strokeLinecap="round"
       />
     </svg>
   );
 };
 
-export default LeftArrowIcon;
+export default RightArrowIcon;
