@@ -76,12 +76,11 @@ const NavigationMusicItem: FC<NavigationMusicItemProps> = ({
       href={href}
       isExpanded={isExpanded}
       className={`
+        ${className || ""}
         h-14 px-0 py-2 w-full
         text-white/80 hover:text-white hover:bg-[#363636]/50
         rounded-lg whitespace-nowrap overflow-hidden
         transition-colors duration-200
-        ${className || ""}
-        w-auto gap-0 
       `}
     >
       <MusicContent />

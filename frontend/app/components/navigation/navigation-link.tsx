@@ -25,14 +25,13 @@ const NavigationLink: FC<NavigationLinkProps> = ({
     <a
       href={href}
       className={`
+        ${className || ""}
         flex items-center h-9 gap-2 rounded-md
         px-1 py-2
         opacity-75 hover:opacity-100 transition-opacity duration-200
         text-white bg-transparent hover:bg-white/10
         
-        ${isExpanded ? "w-[190.2px]" : ""}
-        
-        ${className || ""}
+        ${isExpanded ? "w-full" : ""}
       `}
     >
       <Icon />

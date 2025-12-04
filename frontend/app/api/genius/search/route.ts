@@ -23,6 +23,6 @@ export async function GET(req: Request) {
     });
   } catch (e: any) {
     console.error("AXIOS ERROR:", e?.response?.data || e);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    return NextResponse.json({ error: "Server error: " + e.response.data }, { status: 500 });
   }
 }

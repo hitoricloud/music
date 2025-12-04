@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import ItemCard from "../../components/search/item-card";
 import axios from "axios";
 import type { NextPage } from "next";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import {
   GeniusAlbumResponse,
   GeniusArtistSectionResponse,
@@ -21,9 +21,10 @@ const Search: NextPage = () => {
   const [artistsData, setArtistsData] = useState<GeniusArtistSectionResponse | null>(null);
   const [songsData, setSongsData] = useState<GeniusSongSectionResponse | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { push } = useRouter();
 
   useEffect(() => {
-    if (!id) return;
+    if (!id) push("/");
     axios
       .get("/api/genius/search", { params: { q: id, per_page: 10, page: 1 } })
       .then((res) => setSearchData(res.data));
@@ -62,7 +63,7 @@ const Search: NextPage = () => {
         {/* Artists */}
         <div className="flex flex-col mt-8 gap-4">
           <h1>Artists</h1>
-          <div className="grid gap-4 grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1">
+          <div className="grid gap-4 grid-cols-3 max-[1280px]:grid-cols-2 max-[1100px]:grid-cols-1">
             {artistsData
               ? artistsData?.result.response.sections[0].hits.map((item) => (
                   <ItemCard
@@ -82,7 +83,7 @@ const Search: NextPage = () => {
         {/* Albums */}
         <div className="flex flex-col mt-8 gap-4">
           <h1>Albums</h1>
-          <div className="grid gap-4 grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1">
+          <div className="grid gap-4 grid-cols-3 max-[1280px]:grid-cols-2 max-[1100px]:grid-cols-1">
             {albumsData?.result.response.sections.length !== 0
               ? albumsData?.result.response.sections[0].hits.map((item) => (
                   <ItemCard
@@ -103,7 +104,7 @@ const Search: NextPage = () => {
       {/* Songs */}
       <section className="flex flex-col w-full gap-4">
         <h1>Songs</h1>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 w-full">
           {songsData
             ? songsData?.result.response.sections[0].hits.map((item, idx) => (
                 <SongRow
@@ -114,8 +115,8 @@ const Search: NextPage = () => {
                   header_image_thumbnail_url={item.result.header_image_thumbnail_url}
                 />
               ))
-            : Array.from({ length: 10 }).map((_, i) => (
-                <Skeleton key={i} className="w-full h-10 my-4" />
+            : Array.from({ length: 15 }).map((_, i) => (
+                <Skeleton key={i} className="w-full h-10 my-1" />
               ))}
         </div>
       </section>

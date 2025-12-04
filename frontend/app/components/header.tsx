@@ -35,7 +35,7 @@ const Header = () => {
   return (
     <header
       className={
-        "w-full flex fixed items-center justify-center outline z-5 bg-(--background)/70 backdrop-blur-xl outline-[#ffffff]/15 px-2 py-1.5 gap-2.5"
+        "w-full flex fixed items-center justify-center outline z-6 bg-(--background)/70 backdrop-blur-xl outline-[#ffffff]/15 px-2 py-1.5 gap-2.5"
       }
     >
       <section className={"flex justify-start grow gap-2.5"}>
