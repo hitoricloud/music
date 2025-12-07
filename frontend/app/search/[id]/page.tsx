@@ -1,26 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import ItemCard from "../../components/search/item-card";
+//libs
 import axios from "axios";
-import type { NextPage } from "next";
+
+//hooks
+import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import {
+
+//components
+import ItemCard from "../../components/search/item-card";
+import SongRow from "../../components/search/song-row";
+import Skeleton from "../../components/skeleton";
+
+//types
+import type { NextPage } from "next";
+import type {
   GeniusAlbumResponse,
   GeniusArtistSectionResponse,
   GeniusSearchResponse,
   GeniusSongSectionResponse,
 } from "../../types";
-import SongRow from "../../components/search/song-row";
-import Skeleton from "../../components/skeleton";
 
 const Search: NextPage = () => {
-  const { id } = useParams();
   const [searchData, setSearchData] = useState<GeniusSearchResponse | null>(null);
   const [albumsData, setAlbumsData] = useState<GeniusAlbumResponse | null>(null);
   const [artistsData, setArtistsData] = useState<GeniusArtistSectionResponse | null>(null);
   const [songsData, setSongsData] = useState<GeniusSongSectionResponse | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const { id } = useParams();
   const { push } = useRouter();
 
   useEffect(() => {
@@ -38,7 +45,6 @@ const Search: NextPage = () => {
       .get("/api/genius/search", { params: { type: "artists", q: id, per_page: 10, page: 1 } })
       .then((res) => {
         setArtistsData(res.data);
-        setIsLoading(false);
       });
   }, [id]);
 
@@ -48,6 +54,7 @@ const Search: NextPage = () => {
         {/* Top Result */}
         <div className="flex flex-col gap-4">
           <h1>Top Result</h1>
+
           {searchData?.result?.response?.hits?.length ? (
             <ItemCard
               title={searchData.result.response?.hits[0].result.title}
@@ -63,6 +70,7 @@ const Search: NextPage = () => {
         {/* Artists */}
         <div className="flex flex-col mt-8 gap-4">
           <h1>Artists</h1>
+
           <div className="grid gap-4 grid-cols-3 max-[1280px]:grid-cols-2 max-[1100px]:grid-cols-1">
             {artistsData
               ? artistsData?.result.response.sections[0].hits.map((item) => (
@@ -83,6 +91,7 @@ const Search: NextPage = () => {
         {/* Albums */}
         <div className="flex flex-col mt-8 gap-4">
           <h1>Albums</h1>
+
           <div className="grid gap-4 grid-cols-3 max-[1280px]:grid-cols-2 max-[1100px]:grid-cols-1">
             {albumsData?.result.response.sections.length !== 0
               ? albumsData?.result.response.sections[0].hits.map((item) => (
@@ -104,6 +113,7 @@ const Search: NextPage = () => {
       {/* Songs */}
       <section className="flex flex-col w-full gap-4">
         <h1>Songs</h1>
+
         <div className="flex flex-col gap-2 w-full">
           {songsData
             ? songsData?.result.response.sections[0].hits.map((item, idx) => (

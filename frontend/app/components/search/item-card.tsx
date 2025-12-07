@@ -14,10 +14,10 @@ const ItemCard: FC<Props> = ({ image, title, label, type, href }) => {
     <div className={`flex flex-col w-full rounded-lg cursor-pointer`}>
       <div className={`${type === "banner" ? "w-full" : "w-40"} h-40 relative`}>
         <div className="flex flex-col p-4 absolute z-5 bottom-0 pointer-events-none">
-          <h2 className="w-40 text-nowrap overflow-hidden text-ellipsis text-[11px] text-white/50">
+          <h2 className="w-35 text-nowrap overflow-hidden text-ellipsis text-[11px] text-white/50">
             {label}
           </h2>
-          <h1 className="w-40 text-nowrap overflow-hidden text-ellipsis text-[16px] font-semibold">
+          <h1 className="w-35 text-nowrap overflow-hidden text-ellipsis text-[16px] font-semibold">
             {title}
           </h1>
         </div>

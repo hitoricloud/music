@@ -1,6 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+//hooks
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
 //icons
 import CloseIcon from "./icons/close";
@@ -8,10 +10,13 @@ import CollapseIcon from "./icons/collapse";
 import ExpandIcon from "./icons/expand";
 import LeftArrowIcon from "./icons/left-arrow";
 import RightArrowIcon from "./icons/right-arrow";
-import { useRouter } from "next/navigation";
-import { debounce } from "../utils/debounce";
 
-const Header = () => {
+//utils
+import { debounce } from "../utils/debounce";
+import { observer } from "mobx-react-lite";
+import { appStore } from "../store/app-store";
+
+const Header = observer(() => {
   const [searchValue, setSearchValue] = useState<string>("");
   const { push } = useRouter();
 
@@ -32,11 +37,19 @@ const Header = () => {
     []
   );
 
+  useEffect(() => {
+    appStore.initializeApp();
+  }, []);
+
   return (
     <header
-      className={
-        "w-full flex fixed items-center justify-center outline z-6 bg-(--background)/70 backdrop-blur-xl outline-[#ffffff]/15 px-2 py-1.5 gap-2.5"
-      }
+      style={{ widows: 1 }}
+      className={`
+        w-full flex items-center justify-center 
+        select-none outline bg-(--background)/70 backdrop-blur-xl 
+        outline-[#ffffff]/15 px-2 py-1.5 pointer-events-auto 
+        ${appStore._appData?.isMac && "pt-8"} gap-2.5
+      `}
     >
       <section className={"flex justify-start grow gap-2.5"}>
         <nav className={"flex"}>
@@ -61,6 +74,10 @@ const Header = () => {
           name="search"
           className="flex w-full bg-[#363636] py-2 px-4 rounded-sm outline-none"
           placeholder="What listen today?"
+          autoCorrect="off"
+          autoComplete="off"
+          autoCapitalize="off"
+          type="text"
           value={searchValue}
           onChange={(e) => {
             setSearchValue(e.target.value);
@@ -69,32 +86,34 @@ const Header = () => {
         />
       </section>
       <section className={"flex justify-end grow"}>
-        <nav className={"flex"}>
-          <button
-            onClick={handleMinimize}
-            className={"p-2 rounded-md transition-all hover:bg-white/30"}
-            aria-label="Minimize"
-          >
-            <CollapseIcon />
-          </button>
-          <button
-            onClick={handleMaximize}
-            className={"p-2 rounded-md transition-all hover:bg-white/30"}
-            aria-label="Maximize"
-          >
-            <ExpandIcon />
-          </button>
-          <button
-            onClick={handleQuit}
-            className={"p-2 rounded-md transition-all hover:bg-white/30"}
-            aria-label="Quit"
-          >
-            <CloseIcon />
-          </button>
-        </nav>
+        {!appStore._appData?.isMac && (
+          <nav className={"flex"}>
+            <button
+              onClick={handleMinimize}
+              className={"p-2 rounded-md transition-all hover:bg-white/30"}
+              aria-label="Minimize"
+            >
+              <CollapseIcon />
+            </button>
+            <button
+              onClick={handleMaximize}
+              className={"p-2 rounded-md transition-all hover:bg-white/30"}
+              aria-label="Maximize"
+            >
+              <ExpandIcon />
+            </button>
+            <button
+              onClick={handleQuit}
+              className={"p-2 rounded-md transition-all hover:bg-white/30"}
+              aria-label="Quit"
+            >
+              <CloseIcon />
+            </button>
+          </nav>
+        )}
       </section>
     </header>
   );
-};
+});
 
 export default Header;

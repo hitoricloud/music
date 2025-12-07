@@ -1,9 +1,16 @@
+//types
 import type { Metadata } from "next";
+
+//fonts
 import { Inter } from "next/font/google";
 
-import "./globals.css";
+//components
 import Header from "./components/header";
-import Navigation from "./components/navigation";
+import Playback from "./components/playback/playback";
+import Sidebar from "./components/sidebar/sidebar";
+
+//stylesheet
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,13 +37,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <div className="flex flex-col"> */}
-        <Header />
-        {/* <div className="flex"> */}
-        <Navigation />
+        <div className="flex flex-col fixed z-6 w-full h-full pointer-events-none">
+          <Header />
+
+          <div className="flex flex-row grow w-max min-h-0">
+            <Sidebar />
+          </div>
+
+          <Playback />
+        </div>
+
         <div className="py-20 px-25">{children}</div>
-        {/* </div>
-        </div> */}
       </body>
     </html>
   );

@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
       new URL("https://images.rapgenius.com/**"),
       new URL("https://filepicker-images.genius.com/**"),
       new URL("https://s3.amazonaws.com/**"),
+      new URL("https://www.instagram.com/**"),
+      new URL("https://imgur.com/**"),
       {
         protocol: "https",
         hostname: "assets.genius.com",

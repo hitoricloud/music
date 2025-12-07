@@ -175,3 +175,12 @@ export interface GeniusArtistHit {
   type: string; // "artist"
   result: GeniusArtist;
 }
+
+export interface PlayerTrack {
+  id: number;
+  title: string;
+  artist: string;
+  cover: string;
+  audioUrl: string;
+  raw: GeniusSong;
+}
