@@ -30,6 +30,7 @@ declare global {
       WindowToggleMaximise: () => void;
       Quit: () => void;
     };
+    go: any;
   }
 }
 
